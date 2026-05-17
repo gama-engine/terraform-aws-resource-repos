@@ -13,6 +13,7 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "public_subnet" {
   provider                = 
+  count                   = 
   vpc_id                  = 
   cidr_block              = 
   availability_zone       = 
@@ -25,6 +26,8 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_subnet" "private_subnet" {
+  provider          = 
+  count             = 
   vpc_id            = 
   cidr_block        =
   availability_zone = 
@@ -66,4 +69,5 @@ resource "aws_route_table_association" "rta" {
   subnet_id      = 
   route_table_id = 
 }
+
 
