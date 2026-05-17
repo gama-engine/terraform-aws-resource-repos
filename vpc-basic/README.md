@@ -5,12 +5,9 @@ Creates a custom VPC for AWS infrastructure.
 
 ## Resources Used
 - aws_vpc
-- aws_subnet
+- aws_subnet (public & private subnet)
 - aws_internet_gateway
 - aws_route_table
-
-## Flow:
-Internet → IGW → Public Subnet → App
 
 ## Use Cases
 - Starting point for AWS networking
