@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  name        = "${var.project_name}-web-sg"
+  name        = "${var.project_name}-xx-sg"
   description = "Security group for "
   vpc_id      = 
 
@@ -8,6 +8,7 @@ resource "aws_security_group" "sg" {
     from_port   = 
     to_port     = 
     protocol    = ""
+    security_groups = [  ]  #Used for Data Servers
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -16,11 +17,12 @@ resource "aws_security_group" "sg" {
     from_port   = 
     to_port     = 
     protocol    = ""
+    
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name        = "${var.project_name}-web-sg"
+    Name        = "${var.project_name}-xxx-sg"
     Environment = var.environment
   }
 }
