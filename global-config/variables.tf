@@ -9,3 +9,16 @@ variable "global_config" {
     common_tags = map(string)
   })
 }
+
+#== tfvars file format for reference
+global_config = {
+  project_name = " "
+  environment  = " "
+  aws_region   = " "
+
+  common_tags = {
+    Owner       = "GaMa"
+    ManagedBy   = "Terraform"
+    Environment = "dev"
+  }
+}
