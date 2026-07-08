@@ -1,32 +1,57 @@
 # Basic VPC
 
 ## Purpose
-Creates a custom VPC for AWS infrastructure.
+Creates a custom Virtual Private Cloud (VPC) with public and private subnets for AWS networking.
 
-## Resources Used
+## AWS Resources
 - aws_vpc
-- aws_subnet (public & private subnet)
+- aws_subnet (Public)
+- aws_subnet (Private)
 - aws_internet_gateway
 - aws_route_table
+- aws_route_table_association
 
 ## Use Cases
-- Starting point for AWS networking
-- Foundation for 2-tier or 3-tier architecture
+- AWS networking foundation
+- 2-tier architecture
+- 3-tier architecture
+- Multi-tier application deployments
 
 ## Architecture Flow
-Internet → Internet Gateway → Public Subnet
+
+Internet
+    │
+    ▼
+Internet Gateway
+    │
+    ▼
+Public Route Table
+    │
+    ▼
+Public Subnet(s)
+
+Private Subnet(s)
+    ▲
+    │
+No Internet Access (until NAT Gateway is added)
 
 ## Important Concepts
-- CIDR blocks
-- Route tables
-- Public vs private subnet
+- CIDR Blocks
+- Public vs Private Subnets
+- Route Tables
+- Internet Gateway
+- Availability Zones
 
 ## Commands
 
+```bash
 terraform init
 terraform plan
 terraform apply
+```
 
 ## Notes
-- Keep CIDR ranges non-overlapping
-- Public subnet needs route to IGW
+- Keep CIDR blocks non-overlapping.
+- Use multiple Availability Zones for high availability.
+- Public subnets require a route to the Internet Gateway.
+- Private subnets require a NAT Gateway for outbound internet access.

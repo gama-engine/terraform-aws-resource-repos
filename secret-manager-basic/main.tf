@@ -1,8 +1,7 @@
 resource "random_password" " " {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
+  length           = 16     
+  special          = true 
+  override_special = "!#$%&*()-_=+[]{}<>:?"  #Avoids unsupported AWS chars
 
 resource "random_id" "suffix" {
   byte_length = 4

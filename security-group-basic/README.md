@@ -99,3 +99,27 @@ Common examples:
 - Web SG → allows HTTP/HTTPS
 - DB SG → allows MySQL only from web SG
 - Bastion SG → allows SSH from trusted IPs
+
+
+
+## Traffic Flow
+
+Internet
+    │
+    ▼
+ALB Security Group
+    │
+    ▼
+Application Security Group
+    │
+    ▼
+Database Security Group
+
+## Important Concepts
+
+- Stateful Firewall
+- Ingress Rules
+- Egress Rules
+- Security Group Referencing
+- Principle of Least Privilege
+

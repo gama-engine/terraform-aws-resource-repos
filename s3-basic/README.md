@@ -1,127 +1,63 @@
-# S3 Bucket Configuration
+# Amazon S3 (Basic)
 
 ## Purpose
-Creates and secures an Amazon S3 bucket for object storage.
 
-This configuration includes:
-- bucket creation
-- versioning
-- server-side encryption
-- public access protection
+Creates a secure Amazon S3 bucket with Versioning, Server-Side Encryption, Ownership Controls, and Public Access Block enabled.
 
----
+## AWS Resources
 
-# Resources Used
+- aws_s3_bucket
+- aws_s3_bucket_versioning
+- aws_s3_bucket_server_side_encryption_configuration
+- aws_s3_bucket_ownership_controls
+- aws_s3_bucket_public_access_block
 
-## aws_s3_bucket
+## Use Cases
 
-Creates the main S3 bucket.
+- Terraform Remote State
+- Application Storage
+- Backups
+- Log Storage
+- CI/CD Artifacts
+- Static Assets
+- Data Lake Foundation
 
-S3 buckets are commonly used for:
-- file uploads
-- application storage
-- backups
-- logs
-- static assets
-- Terraform remote state
+## Architecture Flow
 
----
+S3 Bucket
+     │
+     ▼
+Versioning
+     │
+     ▼
+Server-Side Encryption
+     │
+     ▼
+Ownership Controls
+     │
+     ▼
+Public Access Block
 
-## Bucket Versioning
+## Important Concepts
 
-```hcl
-aws_s3_bucket_versioning
+- Bucket Naming
+- Versioning
+- Server-Side Encryption (SSE)
+- Bucket Ownership
+- Public Access Block
+
+## Commands
+
+```bash
+terraform init
+terraform plan
+terraform apply
 ```
 
-Enables object versioning.
+## Notes
 
-### Benefits
-- protects against accidental deletion
-- allows file recovery
-- maintains object history
-
-Example:
-```text
-file-v1
-file-v2
-file-v3
-```
-
-Useful for:
-- backup systems
-- production workloads
-- Terraform state protection
-
----
-
-## Server-Side Encryption
-
-```hcl
-aws_s3_bucket_server_side_encryption_configuration
-```
-
-Automatically encrypts stored objects.
-
-### Encryption Method
-
-```hcl
-sse_algorithm = "AES256"
-```
-
-AWS manages encryption automatically using AES-256 encryption.
-
-### Security Benefits
-Protects:
-- uploaded files
-- sensitive data
-- stored application assets
-
----
-
-## Public Access Block
-
-```hcl
-aws_s3_bucket_public_access_block
-```
-
-Prevents accidental public exposure of the bucket.
-
-### Security Controls
-
-- block public ACLs
-- block public bucket policies
-- ignore public ACLs
-- restrict public bucket access
-
-### Why Important?
-
-Misconfigured S3 buckets are one of the most common cloud security risks.
-
-Public access blocks help prevent:
-- unintended internet exposure
-- sensitive data leaks
-- insecure bucket policies
-
----
-
-# Security Best Practices Implemented
-
-This configuration follows common AWS security practices:
-
-- encryption enabled
-- versioning enabled
-- public access blocked
-- controlled bucket access
-
----
-
-# Architecture Role
-
-S3 buckets commonly serve as:
-- application storage
-- backup storage
-- artifact repositories
-- log storage
-- infrastructure state storage
-
-This configuration provides a secure reusable storage foundation.
+- Bucket names must be globally unique.
+- Enable Versioning to protect against accidental deletion and overwrites.
+- Enable Server-Side Encryption for data at rest.
+- Use `BucketOwnerEnforced` ownership to disable ACLs.
+- Block Public Access unless the bucket is intentionally public.
