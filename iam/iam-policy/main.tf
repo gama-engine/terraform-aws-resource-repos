@@ -20,12 +20,9 @@
 # Step 1 - Define IAM Permissions
 # =============================================================================
 data "aws_iam_policy_document" "permissions" {
-
   statement {
-
     sid    = # Statement Identifier
     effect = "Allow"
-
     actions = [
       # IAM Actions
       # Examples:
@@ -35,29 +32,23 @@ data "aws_iam_policy_document" "permissions" {
       # sqs:SendMessage
       # logs:CreateLogGroup
     ]
-
     resources = [
       # Resource ARN(s)
     ]
   }
-
   # ===========================================================================
   # Add Additional Statements if Required
   # ===========================================================================
   #
   # statement {
-  #
   #   sid    = # Statement Identifier
   #   effect = "Allow"
-  #
   #   actions = [
   #     # IAM Actions
   #   ]
-  #
   #   resources = [
   #     # Resource ARN(s)
   #   ]
-  #
   # }
 }
 
@@ -66,11 +57,8 @@ data "aws_iam_policy_document" "permissions" {
 # Step 2 - Create Inline IAM Policy
 # =============================================================================
 resource "aws_iam_role_policy" "main" {
-
   name = # IAM Policy Name
-
   role = # IAM Role ID
-
   policy = data.aws_iam_policy_document.permissions.json
 }
 

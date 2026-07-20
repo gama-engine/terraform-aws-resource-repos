@@ -21,11 +21,8 @@
 # Step 1 - Attach Managed Policy to IAM Role
 # =============================================================================
 resource "aws_iam_role_policy_attachment" "main" {
-
   role = # IAM Role Name
-
   policy_arn = # Managed Policy ARN
-
 }
 
 

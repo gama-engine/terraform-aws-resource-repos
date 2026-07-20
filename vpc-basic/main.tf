@@ -4,11 +4,12 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  tags = {
-    Name        = "${var.project_name}-vpc"
-    Environment = var.environment
-    Purpose     = # e.g. "Application", "Networking", "Shared"
+  tags = merge(
+  local.common_tags,
+  {
+    Name = "${local.common_tags.Project}-VPC"
   }
+)
 }
 
 resource "aws_subnet" "public_subnet" {
@@ -19,10 +20,12 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = # var.availability_zones[count.index]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name        = "${var.project_name}-public-subnet-${count.index + 1}"
-    Environment = var.environment
+  tags = merge(
+  local.common_tags,
+  {
+    Name = "${local.common_tags.Project}-public-subnet-${count.index + 1}"
   }
+)
 }
 
 resource "aws_subnet" "private_subnet" {
@@ -32,20 +35,24 @@ resource "aws_subnet" "private_subnet" {
   cidr_block        = # var.private_subnet_cidr[count.index]
   availability_zone = # var.availability_zones[count.index]
 
-  tags = {
-    Name        = "${var.project_name}-private-subnet-${count.index + 1}"
-    Environment = var.environment
+  tags = merge(
+  local.common_tags,
+  {
+    Name =  "${local.common_tags.Project}-private-subnet-${count.index + 1}"
   }
+  )
 }
 
 resource "aws_internet_gateway" "igw" {
   provider = # aws.<alias> (optional)
   vpc_id   = # aws_vpc.main.id
 
-  tags = {
-    Name        = "${var.project_name}-igw"
-    Environment = var.environment
+  tags = merge(
+  local.common_tags,
+  {
+    Name = "${local.common_tags.Project}-IGW"
   }
+  )
 }
 
 resource "aws_route_table" "rt" {
@@ -57,10 +64,12 @@ resource "aws_route_table" "rt" {
     gateway_id = # aws_internet_gateway.igw.id
   }
 
-  tags = {
-    Name        = "${var.project_name}-public-rt"
-    Environment = var.environment
+  tags = merge(
+  local.common_tags,
+  {
+    Name = "${local.common_tags.Project}-Public-Toute-Table"
   }
+  )
 }
 
 resource "aws_route_table_association" "rta" {

@@ -33,80 +33,54 @@
 # Step 1 - Create Launch Template
 # =============================================================================
 resource "aws_launch_template" "main" {
-
   name = # Launch Template Name
-
   image_id = # Amazon Machine Image (AMI) ID
-
   instance_type = # EC2 Instance Type
-
   key_name = # EC2 Key Pair Name
+  user_data = # Base64 encoded user data (e.g. base64encode(file("${path.module}/userdata.sh")))
+  update_default_version = true
 
-
-  vpc_security_group_ids = [
-    # Security Group ID(s)
-  ]
-
+  network_interfaces {
+  security_groups             = var.sg_ids
+  associate_public_ip_address = false
+}
 
   iam_instance_profile {
-
     name = # IAM Instance Profile Name
-
   }
-
-
-  user_data = # User Data Script (Base64 Encoded)
-
 
   monitoring {
-
-    enabled = # true | false
-
+    enabled = true
   }
-
 
   block_device_mappings {
-
-    device_name = # Root Device Name (/dev/xvda)
-
+    device_name = # Root device name (commonly /dev/xvda for Amazon Linux)
     ebs {
-
       volume_size = # Root Volume Size (GB)
-
-      volume_type = # gp3 | gp2 | io2
-
+      volume_type = # gp3(Recommended) | gp2 | io2
       encrypted = # true | false
-
       delete_on_termination = true
-
     }
-
   }
+
+  metadata_options {
+  http_endpoint = "enabled"
+  http_tokens   = "required"
+}
 
 
   tag_specifications {
-
     resource_type = "instance"
-
     tags = {
-
       Name = # EC2 Instance Name
-
       Environment = # Environment
-
     }
-
   }
-
 
   tags = {
-
     Name = # Launch Template Name
-
     Environment = # Environment
-
   }
-
 }
 
 

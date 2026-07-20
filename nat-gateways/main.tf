@@ -19,7 +19,7 @@
 # One Elastic IP is required for each NAT Gateway.
 # =============================================================================
 resource "aws_eip" "main" {
-  count  = # Number of Elastic IPs (One per NAT Gateway)
+  count  = # Number of Elastic IPs (One per NAT Gateway) #Depends on Public Subnet Count
   domain = "vpc"
 
   tags = {
@@ -27,7 +27,7 @@ resource "aws_eip" "main" {
   }
 
   depends_on = [
-    # Internet Gateway
+    # Internet Gateway #Not Gateway ID #Expects the Resource, not its Attribute.
   ]
 }
 

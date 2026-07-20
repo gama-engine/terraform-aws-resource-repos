@@ -16,18 +16,13 @@
 # Determines which AWS service can assume this role.
 # =============================================================================
 data "aws_iam_policy_document" "assume_role" {
-
   statement {
     effect = "Allow"
-
     actions = [
       "sts:AssumeRole"
     ]
-
     principals {
-
       type = Service
-
       identifiers = [
         # Service Principal
         # Examples:
@@ -46,11 +41,9 @@ data "aws_iam_policy_document" "assume_role" {
 # Step 2 - Create IAM Role
 # =============================================================================
 resource "aws_iam_role" "main" {
-
   name = # IAM Role Name
-
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
-
+  
   tags = {
     Name        = # IAM Role Name
     Environment = # Environment

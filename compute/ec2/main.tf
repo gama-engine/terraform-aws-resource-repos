@@ -30,44 +30,31 @@
 # Step 1 - Launch EC2 Instance
 # =============================================================================
 resource "aws_instance" "main" {
-
   ami = # Amazon Machine Image (AMI) ID
-
   instance_type = # EC2 Instance Type
-
   subnet_id = # Public or Private Subnet ID
-
-  vpc_security_group_ids = [
-    # Security Group ID(s)
-  ]
-
+  vpc_security_group_ids = [] # Security Group ID(s)
   key_name = # EC2 Key Pair Name
-
   iam_instance_profile = # IAM Instance Profile Name
-
   associate_public_ip_address = # true | false
-
-  user_data = # User Data Script (Optional)
-
+  user_data = # User Data Script (Optional)||file("${path.module}/userdata.sh")||user_data = base64encode(file("${path.module}/userdata.sh"))||
   monitoring = # true | false
-
-  ebs_optimized = # true | false
+  ebs_optimized =  true 
 
   root_block_device {
-
     volume_size = # Root Volume Size (GB)
-
     volume_type = # gp3 | gp2 | io2 | st1 | sc1
-
     encrypted = # true | false
-
     delete_on_termination = true
   }
 
+  metadata_options {
+  http_tokens = "required"
+  http_endpoint = "enabled"
+  }
+
   tags = {
-
     Name = # EC2 Instance Name
-
     Environment = # Environment
   }
 }
